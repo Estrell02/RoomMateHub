@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -118,43 +119,41 @@ celerybeat.pid
 
 # SageMath parsed files
 *.sage.py
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
 
-# Spyder project settings
-.spyderproject
-.spyproject
 
-# Rope project settings
-.ropeproject
+# Dossiers générés par Android Studio ou Gradle
+.idea/
+app/build/
+build/
+.gradle/
+gradle/
 
-# mkdocs documentation
-/site
+# Fichiers générés par Gradle
+gradle-wrapper.jar
+.gradle.kts
+gradle.properties
 
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
+# Fichiers spécifiques à Gradle
+gradlew
+gradlew.bat
 
-# Pyre type checker
-.pyre/
-
-# pytype static type analyzer
-.pytype/
-
-# Cython debug symbols
-cython_debug/
-
-# PyCharm
-#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#  and can be added to the global gitignore or merged into this file.  For a more nuclear
-#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/
+# Fichiers spécifiques à Android Studio
+*.ipr
+*.iws
+>>>>>>> ab78401 (Initialisation front : login (layout+activity), create_user (layout+activity), main_menu (layout+activity))
