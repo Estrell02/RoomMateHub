@@ -8,9 +8,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintSet.Layout
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), API.ApiListener  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_layout)
@@ -22,18 +21,12 @@ class LoginActivity : AppCompatActivity() {
         val loginLayout = findViewById<LinearLayout>(R.id.login_layout)
 
         loginButton.setOnClickListener {
-            if (isValidCredentials(username.text.toString(), password.text.toString())) {
-                Toast.makeText(this, "Connexion réussie", Toast.LENGTH_LONG).show()
-                val intent = Intent(this@LoginActivity, MainMenuActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this,"Nom d'utilisateur ou mot de passe incorrect", Toast.LENGTH_LONG).show()
-            }
+            val apiClient = API(this)
+            val url = "https://jsonplaceholder.typicode.com/users"
+            apiClient.fetchData(url)
         }
 
         loginLayout.setOnClickListener {
-            Toast.makeText(this, "Test", Toast.LENGTH_LONG).show()
-
             username.isEnabled = false
             username.isEnabled = true
             password.isEnabled = false
@@ -44,11 +37,40 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this@LoginActivity, CreateUserActivity::class.java)
             startActivity(intent)
         }
+
+
     }
-    private fun isValidCredentials(username: String, password: String): Boolean {
-        //return username.isNotEmpty() && password.isNotEmpty()
-        return username == "thomas" && password == "the best"
+    private fun isValidCredentials(username: String, password: String, users : List<User>): Boolean {
+        var isUsernamePresent = false
+
+        for (user in users) {
+            if (user.username == username && user.id == password) {
+                isUsernamePresent = true
+                break
+            }
+        }
+        return isUsernamePresent
     }
+
+    override fun onSuccess(users: List<User>) {
+        runOnUiThread {
+            val username = findViewById<EditText>(R.id.login_username)
+            val password = findViewById<EditText>(R.id.login_password)
+            if (isValidCredentials(username.text.toString(), password.text.toString(), users)) {
+                Toast.makeText(this, "Connexion réussie", Toast.LENGTH_LONG).show()
+                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                Toast.makeText(this,"Nom d'utilisateur ou mot de passe incorrect", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    override fun onFailure(error: String) {
+        println("Erreur: $error")
+    }
+
 
 
 }

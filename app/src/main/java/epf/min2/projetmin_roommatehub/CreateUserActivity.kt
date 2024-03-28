@@ -27,6 +27,7 @@ class CreateUserActivity : AppCompatActivity() {
                     Toast.makeText(this, "Inscription réussie", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@CreateUserActivity, LoginActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(this, "Veuillez entrer une adresse email valide", Toast.LENGTH_SHORT).show()
                 }
