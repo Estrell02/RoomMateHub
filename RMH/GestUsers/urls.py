@@ -10,5 +10,5 @@ router.register(r'user', UserViewSet)
 router.register(r'profile', ProfileViewSet)
 
 
-urlpatterns = []
+urlpatterns = [ ]
 urlpatterns += router.urls

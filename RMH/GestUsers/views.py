@@ -6,14 +6,10 @@ from rest_framework.decorators import action
 from .serializers import *
 from .models import *
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-    def get_serializer_class(self):
-        if self.action == 'login':
-            return UserLoginSerializer
-        return UserSerializer
 
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -24,12 +20,25 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-    @action(detail=False, methods=['post'])
-    def logout(self, request):
-        logout(request)
-        return Response({"detail": "Déconnecté avec succès."}, status=status.HTTP_200_OK)
+    # def login(self, request):
+    #     # Implémentation du login
+    #     username = request.data.get('username')
+    #     password = request.data.get('password')
+    #     user = authenticate(request, username=username, password=password)
+    #     if user is not None:
+    #         login(request, user)
+    #         serializer = self.get_serializer(user)
+    #         return Response(serializer.data, status=status.HTTP_200_OK)
+    #     else:
+    #         return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['post'])
+
+    # def logout(self, request):
+    #     # Implémentation du logout
+    #     logout(request)
+    #     return Response({"detail": "Logout successful"}, status=status.HTTP_200_OK)
+
+
     def change_password_connected(self, request):
         user = self.request.user
         old_password = request.data.get('old_password')
@@ -47,6 +56,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()

@@ -1,8 +1,7 @@
-#######################     User ################################
+#######################  User ################################
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from GestUsers.models import User, Profile
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,20 +31,29 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Ce nom d'utilisateur est déjà utilisé.")
         return value
 
+    def validate_password(self, value):
+        try:
+            validate_password(value)
+        except serializers.ValidationError as e:
+            raise serializers.ValidationError(list(e. messages))
+        return value
+
     def create(self, validated_data, *args, **kwargs):
         user = User.objects.create_user(**validated_data)
+        user.save()
         print(validated_data)
         return user
 
-    def validate_password(self, value):
-        try:
+    def update(self, instance, validated_data):
+        # Ignorer le mot de passe lors des mises à jour partielles
+        password = validated_data.pop('password', None)
+        user = super().update(instance, validated_data)
 
-            validate_password(value)
+        if password:
+            user.set_password(password)
+            user.save()
 
-        except serializers.ValidationError as e:
-            raise serializers.ValidationError(list(e. messages))
-
-        return value
+        return user
 
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -58,7 +66,9 @@ class UserLoginSerializer(serializers.Serializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    hobbies = serializers.MultipleChoiceField(choices=Profile.HOBBY_CHOICES)
+    filiere = serializers.ChoiceField(choices=Profile.FILERE_CHOICES)
 
     class Meta:
         model = Profile
-        fields = ['id', 'user', 'picture','hobbies']
+        fields = ('user', 'picture', 'hobbies', 'vegan', 'filiere')
