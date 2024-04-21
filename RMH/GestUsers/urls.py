@@ -10,5 +10,7 @@ router.register(r'user', UserViewSet)
 router.register(r'profile', ProfileViewSet)
 
 
-urlpatterns = [ ]
+urlpatterns = [  path('users/login/', UserViewSet.as_view({'post': 'login'}), name='user_login'),
+    path('users/logout/', UserViewSet.as_view({'post': 'logout'}), name='user_logout')
+                 ]
 urlpatterns += router.urls

@@ -20,23 +20,23 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-    # def login(self, request):
-    #     # Implémentation du login
-    #     username = request.data.get('username')
-    #     password = request.data.get('password')
-    #     user = authenticate(request, username=username, password=password)
-    #     if user is not None:
-    #         login(request, user)
-    #         serializer = self.get_serializer(user)
-    #         return Response(serializer.data, status=status.HTTP_200_OK)
-    #     else:
-    #         return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+    def login(self, request):
+        # Implémentation du login
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            serializer = self.get_serializer(user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-    # def logout(self, request):
-    #     # Implémentation du logout
-    #     logout(request)
-    #     return Response({"detail": "Logout successful"}, status=status.HTTP_200_OK)
+    def logout(self, request):
+        # Implémentation du logout
+        logout(request)
+        return Response({"detail": "Logout successful"}, status=status.HTTP_200_OK)
 
 
     def change_password_connected(self, request):
