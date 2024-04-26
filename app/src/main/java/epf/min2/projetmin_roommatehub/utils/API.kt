@@ -1,6 +1,7 @@
-package epf.min2.projetmin_roommatehub
+package epf.min2.projetmin_roommatehub.utils
 
 import com.google.gson.Gson
+import epf.min2.projetmin_roommatehub.User
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -31,6 +32,7 @@ class API(private val listener: ApiListener) {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     val jsonData = response.body?.string()
+                    println(jsonData)
                     val gson = Gson()
                     val users: Array<User> = gson.fromJson(jsonData, Array<User>::class.java)
                     listener.onSuccess(users.toList())

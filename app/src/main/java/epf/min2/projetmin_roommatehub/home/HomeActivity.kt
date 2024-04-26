@@ -1,9 +1,13 @@
-package epf.min2.projetmin_roommatehub
+package epf.min2.projetmin_roommatehub.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import epf.min2.projetmin_roommatehub.R
+import epf.min2.projetmin_roommatehub.User
+import epf.min2.projetmin_roommatehub.utils.API
+import epf.min2.projetmin_roommatehub.utils.ClientAdapter
 
 
 class HomeActivity : AppCompatActivity(), API.ApiListener {
@@ -13,7 +17,7 @@ class HomeActivity : AppCompatActivity(), API.ApiListener {
 
 
         val apiClient = API(this)
-        val url = "https://jsonplaceholder.typicode.com/users"
+        val url = "http://54.38.241.241:8000/rmh/user"//"https://jsonplaceholder.typicode.com/users"
         apiClient.fetchData(url)
 
     }
@@ -23,8 +27,7 @@ class HomeActivity : AppCompatActivity(), API.ApiListener {
             val recyclerView = findViewById<RecyclerView>(R.id.home_recyclerview)
 
             recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-            recyclerView.adapter =ClientAdapter(users)
+            recyclerView.adapter = ClientAdapter(users)
         }
     }
 

@@ -2,12 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/client_view_cardview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="4dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
 
         <TextView
             android:id="@+id/client_textview"
@@ -15,7 +17,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="TextView"
-            tools:text="Prenom Nom" />
+            tools:text="@tools:sample/full_names" />
+
+        <ImageView
+            android:id="@+id/client_image_imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_margin="4dp"/>
     </androidx.cardview.widget.CardView>
 
 </FrameLayout>

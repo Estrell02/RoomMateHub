@@ -9,37 +9,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center"
         android:padding="16dp">
 
-        <EditText
-            android:id="@+id/editTextNom"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/welcome_message"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Nom"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:textSize="24sp"
+            android:textColor="#000000"
+            android:text="Mot de Passe Oublié"
+            android:layout_marginBottom="32dp"/>
 
         <EditText
-            android:id="@+id/editTextPrenom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Prénom"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/mdpEditTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:layout_marginBottom="5dp"/>
 
         <Button
-            android:id="@+id/buttonSubmit"
-            android:layout_width="match_parent"
+            android:id="@+id/mdpButtonSubmit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="S'inscrire"
+            android:text="Evoyer"
             android:minHeight="48dp" />
 
     </LinearLayout>

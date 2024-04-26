@@ -1,4 +1,4 @@
-package epf.min2.projetmin_roommatehub
+package epf.min2.projetmin_roommatehub.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import epf.min2.projetmin_roommatehub.R
 
 class CreateUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
