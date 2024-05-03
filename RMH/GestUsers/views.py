@@ -5,6 +5,7 @@ from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from .serializers import *
 from .models import *
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -27,8 +28,8 @@ class UserViewSet(viewsets.ModelViewSet):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            serializer = self.get_serializer(user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            refresh = RefreshToken.for_user(user)
+            return Response({"refresh": str(refresh), "access": str(refresh.access_token)}, status=status.HTTP_200_OK)
         else:
             return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -79,6 +80,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         except Profile.DoesNotExist:
             return Response({'detail': 'Profile not found for the specified user ID.'}, status=404)
+
 
 
 
