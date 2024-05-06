@@ -28,10 +28,34 @@
             android:minHeight="48dp" />
 
         <EditText
+            android:id="@+id/editTextPseudo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pseudo"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp" />
+
+        <EditText
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/editTextMDP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="MDP"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/editTextConfirmationMDP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirmation MDP"
             android:inputType="textEmailAddress"
             android:minHeight="48dp" />
 

@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import epf.min2.projetmin_roommatehub.home.HomeActivity
 import epf.min2.projetmin_roommatehub.R
 import epf.min2.projetmin_roommatehub.User
-import epf.min2.projetmin_roommatehub.utils.API
+import epf.min2.projetmin_roommatehub.utils.InterfaceAPIListener
 
-class LoginActivity : AppCompatActivity(), API.ApiListener  {
+class LoginActivity : AppCompatActivity(), InterfaceAPIListener.ApiListener  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_layout)
@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity(), API.ApiListener  {
         val loginLayout = findViewById<LinearLayout>(R.id.login_layout)
 
         loginButton.setOnClickListener {
-            val apiClient = API(this)
+            val apiClient = InterfaceAPIListener(this)
             val url = "https://jsonplaceholder.typicode.com/users"
             apiClient.fetchData(url)
         }
@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity(), API.ApiListener  {
         var isUsernamePresent = false
 
         for (user in users) {
-            if (user.username == username && user.id == password) {
+            if (user.username == username) {// TODO remplacer && user.password == password par une vérification coté back
                 isUsernamePresent = true
                 break
             }
@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity(), API.ApiListener  {
                 Toast.makeText(this, "Connexion réussie", Toast.LENGTH_LONG).show()
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                 startActivity(intent)
-                //finish()
+                finish()
             } else {
                 Toast.makeText(this,"Nom d'utilisateur ou mot de passe incorrect", Toast.LENGTH_LONG).show()
             }

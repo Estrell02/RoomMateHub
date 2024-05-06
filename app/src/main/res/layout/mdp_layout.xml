@@ -19,7 +19,7 @@
             android:textSize="24sp"
             android:textColor="#000000"
             android:text="Mot de Passe Oublié"
-            android:layout_marginBottom="32dp"/>
+            android:layout_marginBottom="27dp"/>
 
         <EditText
             android:id="@+id/mdpEditTextEmail"
@@ -28,14 +28,31 @@
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_margin="5dp"/>
 
         <Button
-            android:id="@+id/mdpButtonSubmit"
+            android:id="@+id/mdpButtonSubmitEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Evoyer"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:layout_margin="5dp"/>
+
+        <EditText
+            android:id="@+id/mdpEditTextCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Code de Validation"
+            android:minHeight="48dp"
+            android:layout_margin="5dp"/>
+
+        <Button
+            android:id="@+id/mdpButtonSubmitCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valider"
+            android:minHeight="48dp"
+            android:layout_margin="5dp"/>
 
     </LinearLayout>
 </ScrollView>
