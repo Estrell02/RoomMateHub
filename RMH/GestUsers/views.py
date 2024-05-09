@@ -29,7 +29,7 @@ class UserViewSet(viewsets.ModelViewSet):
         if user is not None:
             login(request, user)
             refresh = RefreshToken.for_user(user)
-            return Response({"refresh": str(refresh), "access": str(refresh.access_token)}, status=status.HTTP_200_OK)
+            return Response({"id": user.id,"refresh": str(refresh), "access": str(refresh.access_token)}, status=status.HTTP_200_OK)
         else:
             return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -38,7 +38,6 @@ class UserViewSet(viewsets.ModelViewSet):
         # Implémentation du logout
         logout(request)
         return Response({"detail": "Logout successful"}, status=status.HTTP_200_OK)
-
 
     def change_password_connected(self, request):
         user = self.request.user

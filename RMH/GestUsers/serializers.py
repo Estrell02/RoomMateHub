@@ -1,7 +1,7 @@
 #######################  User ################################
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
-from GestUsers.models import User, Profile
+from .models import User, Profile
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
