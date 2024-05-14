@@ -1,38 +1,34 @@
-package epf.min2.projetmin_roommatehub.home
+package epf.min2.projetmin_roommatehub.ProfilList
 
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import epf.min2.projetmin_roommatehub.Profil
 import epf.min2.projetmin_roommatehub.R
 import epf.min2.projetmin_roommatehub.User
 import epf.min2.projetmin_roommatehub.utils.ApiManager
 import epf.min2.projetmin_roommatehub.utils.ClientAdapter
 
-
-class HomeActivity : AppCompatActivity(){
-    override fun onCreate(savedInstanceState: Bundle?) {
+class ProfilListActivity : AppCompatActivity() {
+    /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.home_layout)
+        setContentView(R.layout.profilList_layout)
 
         val apiManager = ApiManager()
 
-        apiManager.getUsers(object : ApiManager.ApiListener<List<User>> {
-            override fun onSuccess(data: List<User>) {
+        apiManager.getProfils(object : ApiManager.ApiListener<List<Profil>> {
+            override fun onSuccess(data: List<Profil>) {
                 runOnUiThread {
                     val recyclerView = findViewById<RecyclerView>(R.id.home_recyclerview)
 
                     recyclerView.layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.VERTICAL, false)
-                    recyclerView.adapter = ClientAdapter(data)
+                    recyclerView.adapter = ProfilAdapter(data)
                 }
             }
 
             override fun onFailure(error: String) {
                 println("Erreur: $error")
             }
-        })
-
-    }
-
+        })*/
 }

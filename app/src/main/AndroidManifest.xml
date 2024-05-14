@@ -24,9 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.CreateUserActivity" />
+        <activity android:name=".login.CreateUserActivity"/>
         <activity android:name=".home.HomeActivity" />
         <activity android:name=".login.MDPActivity" />
+        <activity android:name=".utils.OptionBarre.ModifyUserActivity" />
     </application>
 
 </manifest>

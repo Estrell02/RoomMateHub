@@ -1,4 +1,4 @@
-package epf.min2.projetmin_roommatehub.utils
+package epf.min2.projetmin_roommatehub.utils.OptionBarre
 
 import android.app.Activity
 import android.content.Context
@@ -20,10 +20,11 @@ class OptionsBarre(context: Context, attrs: AttributeSet) : LinearLayout(context
             Toast.makeText(context, "Retour Home", Toast.LENGTH_LONG).show()
             val intent = Intent(context, HomeActivity::class.java)
             context.startActivity(intent)
-            (context as Activity).finish()
         }
         findViewById<TextView>(R.id.btnModifier).setOnClickListener {
             Toast.makeText(context, "Modification Utilisateur", Toast.LENGTH_LONG).show()
+            val intent = Intent(context, ModifyUserActivity::class.java)
+            context.startActivity(intent)
         }
         findViewById<TextView>(R.id.btnDeconnexion).setOnClickListener {
         }
