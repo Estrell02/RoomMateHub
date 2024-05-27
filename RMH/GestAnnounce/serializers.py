@@ -3,6 +3,7 @@ from rest_framework import serializers
 from GestUsers.serializers import UserSerializer
 from .models import Housing
 
+
 class HousingSerializer(serializers.ModelSerializer):
     owner = UserSerializer(read_only=True)
 

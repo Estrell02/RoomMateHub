@@ -22,5 +22,5 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('rmh/', include('GestUsers.urls')),
-    # path('announce/',include('GestAnnounce.urls'))
+    path('announce/',include('GestAnnounce.urls'))
 ]

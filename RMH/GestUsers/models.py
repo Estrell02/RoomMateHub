@@ -1,6 +1,6 @@
-
 from django.contrib.auth.models import AbstractUser, Permission, Group
 from django.db import models
+
 
 class User(AbstractUser):
     pass
@@ -25,7 +25,6 @@ class Profile(models.Model):
     hobbies = models.CharField(max_length=500, choices=HOBBY_CHOICES, blank=True, null=True)
     vegan = models.BooleanField(blank=True, default=False)
     filiere = models.CharField(max_length=500, choices=FILERE_CHOICES, blank=True, null=True)
-
 
     # def __str__(self):
     #     return f"profile of {self.user.username}"
