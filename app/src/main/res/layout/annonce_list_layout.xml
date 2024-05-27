@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,22 +10,17 @@
         android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/homeProfilListButton"
+        android:id="@+id/buttonCreateAnnonce"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profil List" />
+        android:text="Poster une Annonce"
+        android:minHeight="48dp" />
 
-    <Button
-        android:id="@+id/homeAnnonceListButton"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/annonce_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Annonce List" />
-
-    <Button
-        android:id="@+id/homeUserListButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="User List" />
-
+        tools:itemCount="10"
+        tools:listitem="@layout/annonce_view" />
 
 </LinearLayout>

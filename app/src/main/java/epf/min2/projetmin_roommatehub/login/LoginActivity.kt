@@ -11,10 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import epf.min2.projetmin_roommatehub.Global
 import epf.min2.projetmin_roommatehub.LogIn
 import epf.min2.projetmin_roommatehub.NewUser
+import epf.min2.projetmin_roommatehub.Profil
 import epf.min2.projetmin_roommatehub.home.HomeActivity
 import epf.min2.projetmin_roommatehub.R
 import epf.min2.projetmin_roommatehub.User
 import epf.min2.projetmin_roommatehub.utils.ApiManager
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,11 +32,35 @@ class LoginActivity : AppCompatActivity() {
         val linkMDP = findViewById<TextView>(R.id.link_mdp)
         val loginLayout = findViewById<LinearLayout>(R.id.login_layout)
 
+        val apiManager = ApiManager()
+
         loginButton.setOnClickListener {
-            val apiManager = ApiManager()
             val newUser = NewUser("", username.text.toString(), "", "", password.text.toString())
 
-            apiManager.logIn(newUser,object : ApiManager.ApiListener<LogIn> {
+            runBlocking {
+                var response: Response<LogIn> = apiManager.logIn(newUser)
+                if (response.isSuccessful){
+                    val logIn : LogIn = response.body()!!
+                    Global.accessToken= logIn.access
+                    Global.refreshToken= logIn.refresh
+                    val responseProfil: Response<Profil> = apiManager.getProfil(logIn.id.toString())
+                    if (responseProfil.isSuccessful){
+                        val profil : Profil = responseProfil.body()!!
+                        Global.currentUser= profil
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        println(responseProfil.errorBody())
+                        Toast.makeText(this@LoginActivity, response.errorBody().toString(), Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    println(response.errorBody())
+                    Toast.makeText(this@LoginActivity, response.errorBody().toString(), Toast.LENGTH_LONG).show()
+                }
+            }
+
+            /*apiManager.logIn(newUser,object : ApiManager.ApiListener<LogIn> {
                 override fun onSuccess(data: LogIn) {
                     println(data)
                     runOnUiThread {
@@ -50,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this@LoginActivity,"Nom d'utilisateur ou mot de passe incorrect", Toast.LENGTH_LONG).show()
                     println("Erreur: $error")
                 }
-            })
+            })*/
         }
         loginLayout.setOnClickListener {
             username.isEnabled = false
@@ -68,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun init(id:Int){
+    /*fun init(id:Int){
         val apiManager = ApiManager()
 
         apiManager.getUser(id.toString(),object : ApiManager.ApiListener<User> {
@@ -84,6 +112,6 @@ class LoginActivity : AppCompatActivity() {
                 println("Erreur: $error")
             }
         })
-    }
+    }*/
 
 }

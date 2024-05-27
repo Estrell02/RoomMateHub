@@ -26,7 +26,6 @@ gradle/
 # Fichiers générés par Gradle
 gradle-wrapper.jar
 .gradle.kts
-gradle.properties
 
 # Fichiers spécifiques à Gradle
 gradlew

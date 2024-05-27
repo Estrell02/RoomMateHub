@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AnnonceList.CreateAnnonceActivity"
+    android:id="@+id/create_annonce_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/editTextTitreAnnonce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Titre"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/editTextDescriptionAnnonce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:minHeight="96dp" />
+
+        <EditText
+            android:id="@+id/editTextPriceAnnonce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Prix"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/editTextLocationAnnonce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Adresse"
+            android:minHeight="48dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/imageViewAnnonce"
+                android:layout_gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:layout_margin="16dp" />
+            <Button
+                android:id="@+id/buttonImageCreateAnnonce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Choisir une image" />
+
+        </FrameLayout>
+
+
+
+        <Button
+            android:id="@+id/buttonSubmitCreateAnnonce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Poster l'Annonce"
+            android:minHeight="48dp" />
+
+    </LinearLayout>
+</ScrollView>

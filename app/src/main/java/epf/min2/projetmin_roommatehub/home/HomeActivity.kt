@@ -1,14 +1,13 @@
 package epf.min2.projetmin_roommatehub.home
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import epf.min2.projetmin_roommatehub.AnnonceList.AnnonceListActivity
+import epf.min2.projetmin_roommatehub.ProfilList.ProfilListActivity
 import epf.min2.projetmin_roommatehub.R
-import epf.min2.projetmin_roommatehub.User
-import epf.min2.projetmin_roommatehub.utils.ApiManager
-import epf.min2.projetmin_roommatehub.utils.ClientAdapter
+import epf.min2.projetmin_roommatehub.UserListActivity
 
 
 class HomeActivity : AppCompatActivity(){
@@ -16,22 +15,22 @@ class HomeActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_layout)
 
-        val apiManager = ApiManager()
+        val buttonListProfil = findViewById<Button>(R.id.homeProfilListButton)
+        val buttonListAnnonce = findViewById<Button>(R.id.homeAnnonceListButton)
+        val buttonListUser = findViewById<Button>(R.id.homeUserListButton)
 
-        apiManager.getUsers(object : ApiManager.ApiListener<List<User>> {
-            override fun onSuccess(data: List<User>) {
-                runOnUiThread {
-                    val recyclerView = findViewById<RecyclerView>(R.id.home_recyclerview)
-
-                    recyclerView.layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.VERTICAL, false)
-                    recyclerView.adapter = ClientAdapter(data)
-                }
-            }
-
-            override fun onFailure(error: String) {
-                println("Erreur: $error")
-            }
-        })
+        buttonListProfil.setOnClickListener{
+            val intent = Intent(this@HomeActivity, ProfilListActivity::class.java)
+            startActivity(intent)
+        }
+        buttonListUser.setOnClickListener{
+            val intent = Intent(this@HomeActivity, UserListActivity::class.java)
+            startActivity(intent)
+        }
+        buttonListAnnonce.setOnClickListener{
+            val intent = Intent(this@HomeActivity, AnnonceListActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

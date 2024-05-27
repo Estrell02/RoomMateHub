@@ -1,5 +1,9 @@
 package epf.min2.projetmin_roommatehub
 
 data class Profil(
-    val username: String
+    val user: User,
+    //"picture": null,
+    val hobbies: List<String>,
+    val vegan: Boolean,
+    val filiere: String
 )

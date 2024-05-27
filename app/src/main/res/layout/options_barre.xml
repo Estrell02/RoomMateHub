@@ -7,34 +7,38 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:textAlignment="center"
+            android:text="RoomMateHub"/>
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:textAlignment="center"
             android:id="@+id/btnHome"
             android:clickable="true"
-            android:layout_weight="1"
             android:text="Home"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:textAlignment="center"
             android:id="@+id/btnModifier"
             android:clickable="true"
-            android:layout_weight="1"
             android:text="Modifier"
             />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:textAlignment="center"
             android:id="@+id/btnDeconnexion"
             android:clickable="true"
-            android:layout_weight="1"
             android:text="Déconnexion"/>
 
 

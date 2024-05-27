@@ -1,9 +1,9 @@
 package epf.min2.projetmin_roommatehub
 
 object Global {
-    var currentUser: User = User(0,"init_firstname","init_username","init_lastname","init_email")
-    var accessToken: String = ""
-    var refreshToken: String = ""
+    lateinit var currentUser: Profil
+    lateinit var accessToken: String
+    lateinit var refreshToken: String
 }
 data class LogIn(
     var id: Int ,

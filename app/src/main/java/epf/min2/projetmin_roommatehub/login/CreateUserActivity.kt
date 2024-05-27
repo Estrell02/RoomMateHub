@@ -4,13 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import epf.min2.projetmin_roommatehub.Global
+import epf.min2.projetmin_roommatehub.LogIn
 import epf.min2.projetmin_roommatehub.NewUser
+import epf.min2.projetmin_roommatehub.Profil
 import epf.min2.projetmin_roommatehub.R
 import epf.min2.projetmin_roommatehub.User
+import epf.min2.projetmin_roommatehub.home.HomeActivity
 import epf.min2.projetmin_roommatehub.utils.ApiManager
 import epf.min2.projetmin_roommatehub.utils.ApiService
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,22 +35,11 @@ class CreateUserActivity : AppCompatActivity() {
         val editTextPseudo = findViewById<EditText>(R.id.editTextPseudo)
         val editTextMDP = findViewById<EditText>(R.id.editTextMDP)
         val editTextConfirmationMDP = findViewById<EditText>(R.id.editTextConfirmationMDP)
-
         val buttonSubmit = findViewById<Button>(R.id.buttonSubmit)
 
-        val apiListener = object : ApiManager.ApiListener<Unit> {
-            override fun onSuccess(data: Unit) {
-                Toast.makeText(this@CreateUserActivity, "Inscription réussie", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@CreateUserActivity, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+        //val createUserLayout = findViewById<LinearLayout>(R.id.create_user_layout)//Todo
 
-            override fun onFailure(error: String) {
-                Toast.makeText(this@CreateUserActivity, "Username déjà pris", Toast.LENGTH_SHORT).show()
-            }
-        }
-
+        val apiManager = ApiManager()
 
         buttonSubmit.setOnClickListener {
             val nom = editTextNom.text.toString()
@@ -55,82 +50,42 @@ class CreateUserActivity : AppCompatActivity() {
             val confirmationMdp = editTextConfirmationMDP.text.toString()
 
 
+
             if (nom.isNotEmpty() && prenom.isNotEmpty() && email.isNotEmpty() && username.isNotEmpty() && mdp.isNotEmpty() && confirmationMdp.isNotEmpty()) {
-                if (isEmailValid(email) && mdp.equals(confirmationMdp) && isPasswordValid(mdp)) {
+                if (mdp.equals(confirmationMdp)) {
 
                     val newUser = NewUser(nom, username, prenom, email, mdp)
 
-                    val apiManager: ApiManager
-                    apiManager = ApiManager()
 
-                    apiManager.createUser(newUser,apiListener)
+                    runBlocking {
+                        var response: Response<Unit> = apiManager.createUser(newUser)
+                        if (response.isSuccessful){
+                            Toast.makeText(this@CreateUserActivity, "Inscription réussie", Toast.LENGTH_LONG).show()
+                            val intent = Intent(this@CreateUserActivity, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            println(response.errorBody())
+                            Toast.makeText(this@CreateUserActivity, response.errorBody().toString(), Toast.LENGTH_LONG).show()
+                        }
+                    }
 
-                }
-                if (!isEmailValid(email)){
-                    Toast.makeText(this, "Veuillez entrer une adresse email valide", Toast.LENGTH_SHORT).show()
                 }
                 if (!mdp.equals(confirmationMdp)){
-                    Toast.makeText(this, "Le mot de passe et sa confirmation ne sont pas identique", Toast.LENGTH_SHORT).show()
-                }
-                if (!isPasswordValid(mdp)){
-                Toast.makeText(this, "Le mot de passe n'est pas valide", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Le mot de passe et sa confirmation ne sont pas identique", Toast.LENGTH_LONG).show()
                 }
 
             } else {
-                Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    fun isEmailValid(email: String): Boolean {
-        val containsAtAndDot = email.contains('@') && email.contains('.')
-        if (!containsAtAndDot) {
-            return false
-        }
 
-        val parts = email.split('@')
-        val domainParts = parts[1].split('.')
-        if (domainParts.size < 2) {
-            return false
-        }
-
-        val domain = domainParts[0]
-        if (domain.isEmpty()) {
-            return false
-        }
-
-        val extension = domainParts[1]
-        if (extension.length < 2) {
-            return false
-        }
-
-        return true
-    }
-
-    fun isPasswordValid(password: String): Boolean {
-        if (password.length < 8) {
-            return false
-        }
-
-        var hasLetter = false
-        var hasDigit = false
-
-        for (char in password) {
-            if (char.isLetter()) {
-                hasLetter = true
-            } else if (char.isDigit()) {
-                hasDigit = true
-            }
-        }
-
-        if (!hasLetter || !hasDigit) {
-            return false
-        }
-
-        if (password.all { it.isDigit() }) {
-            return false
-        }
-
-        return true
-    }
+    /*create_user_layout.setOnClickListener {
+        username.isEnabled = false
+        username.isEnabled = true
+        password.isEnabled = false
+        password.isEnabled = true
+    }*///Todo
 }

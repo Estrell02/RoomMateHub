@@ -14,7 +14,7 @@ class ClientViewHolder(view : View) : RecyclerView.ViewHolder(view)
 class ClientAdapter(val users: List<User>) : RecyclerView.Adapter<ClientViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.client_view,parent,false)
+        val view = layoutInflater.inflate(R.layout.user_view,parent,false)
         return ClientViewHolder(view)
     }
 

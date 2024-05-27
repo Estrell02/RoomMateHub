@@ -1,125 +1,96 @@
 package epf.min2.projetmin_roommatehub.utils
 
+import android.nfc.Tag
+import android.util.Log
+import androidx.core.net.toFile
+import epf.min2.projetmin_roommatehub.Annonce
 import epf.min2.projetmin_roommatehub.Global
 import epf.min2.projetmin_roommatehub.LogIn
 import epf.min2.projetmin_roommatehub.NewUser
+import epf.min2.projetmin_roommatehub.Profil
 import epf.min2.projetmin_roommatehub.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 
 class ApiManager() {
-
-    interface ApiListener<T> {
-        fun onSuccess(data: T)
-        fun onFailure(error: String)
-    }
 
 
     private val apiService: ApiService
 
     init {
+        val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+
         val retrofit = Retrofit.Builder()
             .baseUrl("http://54.38.241.241:8000/")
             .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
             .build()
 
         apiService = retrofit.create(ApiService::class.java)
     }
 
-    fun getUsers(listener: ApiListener<List<User>>) {
-        val call = apiService.getUsers()
-
-        call.enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                if (response.isSuccessful) {
-                    val users = response.body()
-                    users?.let { listener.onSuccess(it) } ?: listener.onFailure("Réponse vide")
-                } else {
-                    listener.onFailure("Erreur: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                listener.onFailure(t.message ?: "Erreur inconnue")
-            }
-        })
+    suspend fun logIn(newUser: NewUser) : Response<LogIn>{
+        return apiService.logIn(newUser)
     }
 
-    fun getUser(idUser:String,listener: ApiListener<User>) {
-        val call = apiService.getUser(idUser)
-
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    val user = response.body()
-                    user?.let { listener.onSuccess(it) } ?: listener.onFailure("Réponse vide")
-                } else {
-                    listener.onFailure("Erreur: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                listener.onFailure(t.message ?: "Erreur inconnue")
-            }
-        })
+    suspend fun modifyUser(user:User):Response<Unit>{
+        return apiService.modifyUser(user.id,user)
     }
 
-    fun createUser(newUser: NewUser, listener: ApiListener<Unit>) {
-        val call = apiService.createUser(newUser)
-
-        call.enqueue(object : Callback<Unit> {
-            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                if (!response.isSuccessful) {
-                    listener.onFailure("Erreur: ${response.code()} ${response.message()}")
-                } else {
-                    listener.onSuccess(Unit)
-                }
-            }
-
-            override fun onFailure(call: Call<Unit>, t: Throwable) {
-                listener.onFailure(t.message ?: "Erreur inconnue")
-            }
-        })
+    suspend fun createUser(newUser: NewUser):Response<Unit>{
+        return apiService.createUser(newUser)
     }
 
-    fun modifyUser(user: User, listener: ApiListener<Unit>) {
-        val call = apiService.modifyUser(user.id,user)
+    suspend fun getUsers():Response<List<User>> {
+        return apiService.getUsers()
+    }
 
-        call.enqueue(object : Callback<Unit> {
-            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                if (!response.isSuccessful) {
-                    listener.onFailure("Erreur: ${response.code()} ${response.message()}")
-                } else {
-                    listener.onSuccess(Unit)
-                }
-            }
+    suspend fun getUser(idUser : String):Response<User>{
+        return apiService.getUser(idUser)
+    }
 
-            override fun onFailure(call: Call<Unit>, t: Throwable) {
-                listener.onFailure(t.message ?: "Erreur inconnue")
-            }
-        })
+    //       Profil         ///////////////////////////////////////////////////////////////////////
+    suspend fun getProfil(profilId: String) : Response<Profil>{
+        return apiService.getProfil(profilId)
+    }
+
+    suspend fun getProfils():Response<List<Profil>> {
+        return apiService.getProfils()
     }
 
 
-    fun logIn(newUser: NewUser, listener: ApiListener<LogIn>) {
-        val call = apiService.logIn(newUser)
+    //       Annonce        ///////////////////////////////////////////////////////////////////////
+    suspend fun getAnnonces():Response<List<Annonce>>{
+        return apiService.getAnnonces()
+    }
 
-        call.enqueue(object : Callback<LogIn> {
-            override fun onResponse(call: Call<LogIn>, response: Response<LogIn>) {
-                if (response.isSuccessful) {
-                    val logIn = response.body()
-                    logIn?.let { listener.onSuccess(it) } ?: listener.onFailure("Réponse vide")
-                } else {
-                    listener.onFailure("Erreur: ${response.code()} ${response.message()}")
-                }
-            }
+    suspend fun getAnnonce(idAnnonce:String):Response<Annonce>{
+        return apiService.getAnnonce(idAnnonce)
+    }
 
-            override fun onFailure(call: Call<LogIn>, t: Throwable) {
-                listener.onFailure(t.message ?: "Erreur inconnue")
-            }
-        })
+    suspend fun createAnnonce(newAnnonce: Annonce):Response<Unit>{
+        val file = newAnnonce.photo.toFile()
+        val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val multipartBody = MultipartBody.Part.createFormData("photo", file.name, requestBody)
+        return apiService.createAnnonce(newAnnonce,Global.accessToken,multipartBody)
     }
 }

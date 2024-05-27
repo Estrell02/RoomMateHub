@@ -26,7 +26,7 @@ class MDPActivity : AppCompatActivity(){
 
         buttonSubmitEmail.setOnClickListener {
 
-            if (editTextEmail.text.toString().contains("@")) {
+            if (isValidMail(editTextEmail.text.toString())) {
                 //TODO : faire un appel d'api pour des emails
             } else {
                 Toast.makeText(this, "Veuillez entrer une adresse email valide", Toast.LENGTH_SHORT).show()
@@ -44,39 +44,15 @@ class MDPActivity : AppCompatActivity(){
         }
     }
 
-    private fun isValidMail(mail: String, users : List<User>): Boolean {
-        var isMailPresent = false
+    private fun isValidMail(mail: String): Boolean {
 
-        if (true) {
             val destinataire = "thomas.beurdouche@epfedu.fr" // mail
             val sujet = "RoomMateHub MDP Oublié"
             val corps = "Mail = ${mail} Code temporaire = 42"
             envoyerEmail(destinataire, sujet, corps)
-            isMailPresent = true
-        }
 
-        return isMailPresent
+        return true
     }
 
-    /*
-    override fun onSuccess(users: List<User>) {
-        val editTextEmail = findViewById<EditText>(R.id.mdpEditTextEmail)
-
-        if (isValidMail(editTextEmail.text.toString(),users)){
-            runOnUiThread {
-                Toast.makeText(this, "Mail envoyé", Toast.LENGTH_SHORT).show()
-                finish()
-            }
-        }
-        else{
-            runOnUiThread {
-            Toast.makeText(this, "Cette adresse mail n'a pas de compte associé", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    override fun onFailure(error: String) {
-        println("Erreur: $error")
-    }*/
 
 }
