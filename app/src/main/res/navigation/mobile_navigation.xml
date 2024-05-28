@@ -3,23 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
+    android:label="navigation"
     app:startDestination="@+id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="epf.min2.projetmin_roommatehub.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+
+        tools:layout="@layout/home_layout" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="epf.min2.projetmin_roommatehub.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="epf.min2.projetmin_roommatehub.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/homeAnnonceListButton"
+        android:name="epf.min2.projetmin_roommatehub.ui.List_Annonces.List_annonce_Fragment"
+
+        tools:layout="@layout/fragment_list_annonce_" />
 </navigation>
