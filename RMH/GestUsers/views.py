@@ -83,6 +83,47 @@ class ProfileViewSet(viewsets.ModelViewSet):
         except Profile.DoesNotExist:
             return Response({'detail': 'Profile not found for the specified user ID.'}, status=404)
 
+    @action(detail=True, methods=['GET'])
+    def find_matching_profiles(self, request, pk=None):
+        try:
+            user_profile = self.queryset.get(user__id=pk)
+            other_profiles = self.queryset.exclude(user__id=pk)
+
+            similarity_scores = {}
+            for profile in other_profiles:
+                similarity_scores[profile.user.id] = self.calculate_similarity(user_profile, profile)
+
+            sorted_profiles = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=True)
+            top_matches = sorted_profiles[:4]
+
+            # Récupérer les profils des utilisateurs les plus similaires
+            top_profiles = [self.queryset.get(user__id=match[0]) for match in top_matches]
+            serializer = self.get_serializer(top_profiles, many=True)
+
+            return Response(serializer.data)
+        except Profile.DoesNotExist:
+            return Response({'detail': 'Profile not found for the specified user ID.'}, status=404)
+
+    def calculate_similarity(self, profile1, profile2):
+        fields = [
+            'hobbies', 'filiere', 'nightlife', 'cleanliness', 'noise_level_tolerance',
+            'social_interaction_preference', 'lifestyle', 'common_area_usage', 'academic_interests',
+            'consumption_habits', 'pet_friendly'
+        ]
+
+        similarity_score = 0
+        total_fields = len(fields)
+
+        for field in fields:
+            value1 = getattr(profile1, field, None)
+            value2 = getattr(profile2, field, None)
+
+            if value1 and value2:
+                if value1 == value2:
+                    similarity_score += 1
+
+        similarity_percentage = similarity_score / total_fields
+        return similarity_percentage
 
 class RefreshTokenView(TokenObtainPairView):
     """
@@ -96,3 +137,5 @@ class RefreshTokenView(TokenObtainPairView):
             return Response(serializer.validated_data, status=200)
 
         return Response(serializer.errors, status=400)
+
+

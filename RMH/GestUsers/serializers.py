@@ -67,8 +67,26 @@ class UserLoginSerializer(serializers.Serializer):
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     hobbies = serializers.MultipleChoiceField(choices=Profile.HOBBY_CHOICES)
-    filiere = serializers.ChoiceField(choices=Profile.FILERE_CHOICES)
-
+    filiere = serializers.ChoiceField(choices=Profile.FILIERE_CHOICES)
+    nightlife = serializers.ChoiceField(choices=Profile.NIGHTLIFE_CHOICES, allow_blank=True, required=False)
+    cleanliness = serializers.ChoiceField(choices=Profile.CLEANLINESS_CHOICES, allow_blank=True, required=False)
+    noise_level_tolerance = serializers.ChoiceField(choices=Profile.NOISE_LEVEL_CHOICES, allow_blank=True,
+                                                    required=False)
+    meal_preferences = serializers.ChoiceField(choices=Profile.MEAL_PREFERENCES_CHOICES, allow_blank=True,
+                                               required=False)
+    social_interaction_preference = serializers.ChoiceField(choices=Profile.SOCIAL_INTERACTIONS_CHOICES,
+                                                            allow_blank=True, required=False)
+    lifestyle = serializers.ChoiceField(choices=Profile.LIFESTYLE_CHOICES, allow_blank=True, required=False)
+    common_area_usage = serializers.ChoiceField(choices=Profile.COMMON_AREA_USAGE_CHOICES, allow_blank=True,
+                                                required=False)
+    academic_interests = serializers.ChoiceField(choices=Profile.ACADEMIC_INTERESTS_CHOICES, allow_blank=True,
+                                                 required=False)
+    consumption_habits = serializers.ChoiceField(choices=Profile.CONSUMPTION_HABITS_CHOICES, allow_blank=True,
+                                                 required=False)
+    pet_friendly = serializers.ChoiceField(choices=Profile.PET_FRIENDLINESS_CHOICES, allow_blank=True, required=False)
     class Meta:
         model = Profile
-        fields = ('user', 'picture', 'hobbies', 'vegan', 'filiere')
+        fields = ('user', 'picture', 'hobbies', 'vegan', 'filiere', 'nightlife', 'cleanliness',
+            'noise_level_tolerance', 'meal_preferences', 'social_interaction_preference',
+            'lifestyle', 'common_area_usage', 'academic_interests', 'consumption_habits',
+            'pet_friendly')
