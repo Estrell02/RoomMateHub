@@ -1,5 +1,6 @@
 package epf.min2.projetmin_roommatehub.utils
 
+import android.content.Context
 import android.nfc.Tag
 import android.util.Log
 import androidx.core.net.toFile
@@ -24,6 +25,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.io.InputStream
 
 class ApiManager() {
 
@@ -88,6 +90,7 @@ class ApiManager() {
     }
 
     suspend fun createAnnonce(newAnnonce: Annonce):Response<Unit>{
+
         val file = newAnnonce.photo.toFile()
         val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
         val multipartBody = MultipartBody.Part.createFormData("photo", file.name, requestBody)

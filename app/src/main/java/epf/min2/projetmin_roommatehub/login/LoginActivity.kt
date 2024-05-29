@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.button_login)
         val linkNewUser = findViewById<TextView>(R.id.link_newUser)
         val linkMDP = findViewById<TextView>(R.id.link_mdp)
-        val loginLayout = findViewById<LinearLayout>(R.id.login_layout)
+        val loginLayout = findViewById<ScrollView>(R.id.login_layout)
 
         val apiManager = ApiManager()
 
@@ -60,25 +61,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            /*apiManager.logIn(newUser,object : ApiManager.ApiListener<LogIn> {
-                override fun onSuccess(data: LogIn) {
-                    println(data)
-                    runOnUiThread {
-                            Toast.makeText(this@LoginActivity, "Connexion réussie", Toast.LENGTH_LONG).show()
-                            Global.accessToken = data.access
-                            Global.refreshToken = data.refresh
-                            init(data.id)
-                            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                    }
-                }
-
-                override fun onFailure(error: String) {
-                    Toast.makeText(this@LoginActivity,"Nom d'utilisateur ou mot de passe incorrect", Toast.LENGTH_LONG).show()
-                    println("Erreur: $error")
-                }
-            })*/
         }
         loginLayout.setOnClickListener {
             username.isEnabled = false
@@ -96,22 +78,5 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    /*fun init(id:Int){
-        val apiManager = ApiManager()
-
-        apiManager.getUser(id.toString(),object : ApiManager.ApiListener<User> {
-            override fun onSuccess(data: User) {
-                if (true) {
-                    println("connecté en tant que " + data.username)
-                    Global.currentUser=data
-                } else {
-                    Toast.makeText(this@LoginActivity,"Nom d'utilisateur ou mot de passe incorrect", Toast.LENGTH_LONG).show()
-                }
-            }
-            override fun onFailure(error: String) {
-                println("Erreur: $error")
-            }
-        })
-    }*/
 
 }

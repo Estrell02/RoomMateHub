@@ -2,6 +2,7 @@ package epf.min2.projetmin_roommatehub.AnnonceList
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -26,13 +27,14 @@ import epf.min2.projetmin_roommatehub.utils.ApiManager
 import epf.min2.projetmin_roommatehub.utils.outils
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
+import java.io.InputStream
 import java.util.Date
 
 class CreateAnnonceActivity : AppCompatActivity() {
 
     var selectedImageUri: Uri? = null
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    //@RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create_annonce_layout)
@@ -63,7 +65,7 @@ class CreateAnnonceActivity : AppCompatActivity() {
                 val newAnnonce = Annonce(0,titre, description,prix.toDouble(),location, selectedImageUri!!,Date(),Global.currentUser.user)
 
                 runBlocking {
-                    var response: Response<Unit> = apiManager.createAnnonce(newAnnonce)
+                    val response: Response<Unit> = apiManager.createAnnonce(newAnnonce)
                     if (response.isSuccessful){
                         Toast.makeText(this@CreateAnnonceActivity, "Annonce créée", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@CreateAnnonceActivity, AnnonceListActivity::class.java)
@@ -86,9 +88,9 @@ class CreateAnnonceActivity : AppCompatActivity() {
         }
 
         buttonImageAnnonce.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Veuillez autoriser l'accès pour pouvoir choisir une image", Toast.LENGTH_LONG).show()
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_MEDIA_IMAGES), 101)
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 100)
             } else {
                 selectImageFromGallery()
             }
@@ -108,6 +110,8 @@ class CreateAnnonceActivity : AppCompatActivity() {
                 selectedImageUri = uri
                 val imageViewImageAnnonce = findViewById<ImageView>(R.id.imageViewAnnonce)
                 imageViewImageAnnonce.setImageURI(uri)
+                println(selectedImageUri)
+                println(this@CreateAnnonceActivity.contentResolver.openInputStream(selectedImageUri!!))
             }
         }
     }
