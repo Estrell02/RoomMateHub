@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke
+        android:width="2dp"
+        android:color="@color/purple_500" />
+<!--    <solid android:border="@color/principal"/>-->
+    <corners android:radius="69dp"/> <!-- Rayon des coins pour arrondir la bordure -->
+</shape>
