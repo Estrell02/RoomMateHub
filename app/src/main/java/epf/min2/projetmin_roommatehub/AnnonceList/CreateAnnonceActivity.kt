@@ -65,7 +65,7 @@ class CreateAnnonceActivity : AppCompatActivity() {
                 val newAnnonce = Annonce(0,titre, description,prix.toDouble(),location, selectedImageUri!!,Date(),Global.currentUser.user)
 
                 runBlocking {
-                    val response: Response<Unit> = apiManager.createAnnonce(newAnnonce)
+                    val response: Response<Unit> = apiManager.createAnnonce(this@CreateAnnonceActivity,newAnnonce)
                     if (response.isSuccessful){
                         Toast.makeText(this@CreateAnnonceActivity, "Annonce créée", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@CreateAnnonceActivity, AnnonceListActivity::class.java)
@@ -110,8 +110,6 @@ class CreateAnnonceActivity : AppCompatActivity() {
                 selectedImageUri = uri
                 val imageViewImageAnnonce = findViewById<ImageView>(R.id.imageViewAnnonce)
                 imageViewImageAnnonce.setImageURI(uri)
-                println(selectedImageUri)
-                println(this@CreateAnnonceActivity.contentResolver.openInputStream(selectedImageUri!!))
             }
         }
     }

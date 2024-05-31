@@ -7,6 +7,7 @@ import epf.min2.projetmin_roommatehub.NewUser
 import epf.min2.projetmin_roommatehub.Profil
 import epf.min2.projetmin_roommatehub.User
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -52,5 +53,5 @@ interface ApiService {
 
     @Multipart
     @POST("/announce/housing/")
-    suspend fun createAnnonce(@Body newAnnonce: Annonce, @Header("Token") token: String, @Part photo: MultipartBody.Part): Response<Unit>
+    suspend fun createAnnonce(@Part("title") title: RequestBody, @Part("description") description: RequestBody, @Part("price") price: RequestBody, @Part("location") location: RequestBody, @Header("Token") token: String, @Part photo: MultipartBody.Part): Response<Unit>
 }
