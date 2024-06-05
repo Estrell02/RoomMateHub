@@ -11,3 +11,9 @@ class Housing(models.Model):
     photo = models.ImageField(upload_to='housing_photos/')
     created_at = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class HousingApplication(models.Model):
+    user = models.ForeignKey(User, related_name='demandes_logement', on_delete=models.CASCADE)
+    announce = models.ForeignKey(Housing, related_name='demandes', on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    statut = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')])

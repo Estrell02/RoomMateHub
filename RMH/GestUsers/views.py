@@ -3,6 +3,9 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from GestAnnounce.models import HousingApplication, Housing
+from GestAnnounce.serializers import HousingApplicationSerializer
 from .models import *
 from .serializers import UserSerializer, ProfileSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -60,6 +63,28 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer.save(password=instance.password)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(detail=True, methods=['get'], url_path='user-applications')
+    def my_user_applications(self, request, pk=None):
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        applications = HousingApplication.objects.filter(user=user)
+        serializer = HousingApplicationSerializer(applications, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['get'], url_path='owned-housing-applications')
+    def owned_housing_applications(self, request, pk=None):
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        housings = Housing.objects.filter(owner=user)
+        applications = HousingApplication.objects.filter(announce__in=housings)
+        serializer = HousingApplicationSerializer(applications, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -124,6 +149,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
         similarity_percentage = similarity_score / total_fields
         return similarity_percentage
+
+
 
 class RefreshTokenView(TokenObtainPairView):
     """
