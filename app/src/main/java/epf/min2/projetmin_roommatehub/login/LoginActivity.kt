@@ -1,26 +1,41 @@
 package epf.min2.projetmin_roommatehub.login
 
+
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.widget.EditText
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import epf.min2.projetmin_roommatehub.Global
 import epf.min2.projetmin_roommatehub.LogIn
+import epf.min2.projetmin_roommatehub.MainActivity
+
 import epf.min2.projetmin_roommatehub.NewUser
 import epf.min2.projetmin_roommatehub.Profil
 import epf.min2.projetmin_roommatehub.home.HomeActivity
 import epf.min2.projetmin_roommatehub.R
-import epf.min2.projetmin_roommatehub.User
+
+import epf.min2.projetmin_roommatehub.databinding.ActivityMainBinding
+import epf.min2.projetmin_roommatehub.databinding.ActivityRightBinding
 import epf.min2.projetmin_roommatehub.utils.ApiManager
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_layout)
@@ -47,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
                     if (responseProfil.isSuccessful){
                         val profil : Profil = responseProfil.body()!!
                         Global.currentUser= profil
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        val intent = Intent(this@LoginActivity,MainActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {

@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import epf.min2.projetmin_roommatehub.Annonce
-import epf.min2.projetmin_roommatehub.Profil
 import epf.min2.projetmin_roommatehub.R
 import epf.min2.projetmin_roommatehub.utils.AnnonceAdapter
 import epf.min2.projetmin_roommatehub.utils.ApiManager
-import epf.min2.projetmin_roommatehub.utils.ProfilAdapter
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
 

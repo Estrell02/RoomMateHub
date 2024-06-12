@@ -1,9 +1,22 @@
 <resources>
     <string name="app_name">RoomMateHub</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_home"></string>
-    <string name="title_dashboard"></string>
-    <string name="title_notifications"></string>
-    <string name="liste">l</string>
+    <string name="title_home">Accueil</string>
+    <string name="title_dashboard">Mes demandes</string>
+    <string name="title_notifications">Mes messages</string>
+    <string name="liste">Annonces</string>
+    <string name="title_activity_right">RightActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">username</string>
+    <string name="nav_header_subtitle">email</string>
+    <string name="nav_header_desc">Navigation</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Mon profil</string>
+    <string name="menu_gallery">Annonces</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+
 
 </resources>

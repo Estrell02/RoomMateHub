@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="epf.min2.projetmin_roommatehub.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+
+    
+<!--        <action-->
+<!--            android:id="@+id/action_homeFragment_to_slideshowFragment"-->
+<!--            app:destination="@id/nav_slideshow" />-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="epf.min2.projetmin_roommatehub.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/annonce_list_layout">
+        <action
+            android:id="@+id/action_galleryFragment_to_homeFragment"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_galleryFragment_to_slideshowFragment"
+            app:destination="@id/nav_slideshow" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="epf.min2.projetmin_roommatehub.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/profil_list_layout">
+        <action
+            android:id="@+id/action_slideshowFragment_to_homeFragment"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_slideshowFragment_to_galleryFragment"
+            app:destination="@id/nav_gallery" />
+    </fragment>
+
+</navigation>

@@ -13,4 +13,11 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/untitled_logo_2_free_file  </item>
         <item name="postSplashScreenTheme">@style/Base.Theme.ProjetMin_RoomMateHub</item>
     </style>
+    <style name="Theme.ProjetMin_RoomMateHub.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.ProjetMin_RoomMateHub.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.ProjetMin_RoomMateHub.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -20,7 +20,7 @@ class List_annonce_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_list_annonce_, container, false)
+        return inflater.inflate(R.layout.fragment_list_annonce, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
