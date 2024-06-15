@@ -3,7 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from django.middleware.csrf import get_token
 from GestAnnounce.models import HousingApplication, Housing
 from GestAnnounce.serializers import HousingApplicationSerializer
 from .models import *
@@ -33,7 +33,8 @@ class UserViewSet(viewsets.ModelViewSet):
         if user is not None:
             login(request, user)
             refresh = RefreshToken.for_user(user)
-            return Response({"id": user.id, "refresh": str(refresh), "access": str(refresh.access_token)},
+            csrf_token = get_token(request)
+            return Response({"id": user.id, "refresh": str(refresh), "access": str(refresh.access_token)},#"csrf_token": csrf_token},
                             status=status.HTTP_200_OK)
         else:
             return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)

@@ -37,3 +37,30 @@ class HousingApplicationViewset(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+    @action(detail=True, methods=['post'], url_path='approve')
+    def approve_application(self, request, pk=None):
+        try:
+            application = HousingApplication.objects.get(pk=pk, statut='pending')
+        except HousingApplication.DoesNotExist:
+            return Response({"error": "Application not found or not pending"}, status=status.HTTP_404_NOT_FOUND)
+
+        if application.announce.owner != request.user:
+            return Response({"error": "You are not the owner of this housing"}, status=status.HTTP_403_FORBIDDEN)
+
+        application.statut = 'approved'
+        application.save()
+        return Response({"status": "Application approved"}, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['post'], url_path='reject')
+    def reject_application(self, request, pk=None):
+        try:
+            application = HousingApplication.objects.get(pk=pk, statut='pending')
+        except HousingApplication.DoesNotExist:
+            return Response({"error": "Application not found or not pending"}, status=status.HTTP_404_NOT_FOUND)
+
+        if application.announce.owner != request.user:
+            return Response({"error": "You are not the owner of this housing"}, status=status.HTTP_403_FORBIDDEN)
+
+        application.statut = 'rejected'
+        application.save()
+        return Response({"status": "Application rejected"}, status=status.HTTP_200_OK)

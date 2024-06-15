@@ -6,7 +6,7 @@ from .models import User, Profile
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'first_name','username', 'last_name', 'email', 'password')
+        fields = ('id', 'first_name', 'username', 'last_name', 'email', 'password')
         extra_kwargs = {
             "password": {
                 "write_only": True,
@@ -66,7 +66,7 @@ class UserLoginSerializer(serializers.Serializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    hobbies = serializers.MultipleChoiceField(choices=Profile.HOBBY_CHOICES)
+    hobbies = serializers.ChoiceField(choices=Profile.HOBBY_CHOICES)
     filiere = serializers.ChoiceField(choices=Profile.FILIERE_CHOICES)
     nightlife = serializers.ChoiceField(choices=Profile.NIGHTLIFE_CHOICES, allow_blank=True, required=False)
     cleanliness = serializers.ChoiceField(choices=Profile.CLEANLINESS_CHOICES, allow_blank=True, required=False)
