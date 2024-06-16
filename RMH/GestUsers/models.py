@@ -13,6 +13,14 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user', unique=True)
     picture = models.ImageField(upload_to="profile/image/", blank=True, null=True)
+
+    @property
+    def photo_url(self):
+        if self.picture:
+            return self.picture.url
+        return None
+
+
     HOBBY_CHOICES = [
         ('Sports', 'Sports'),
         ('Musique', 'Musique'),

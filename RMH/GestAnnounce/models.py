@@ -2,7 +2,6 @@ from django.db import models
 from GestUsers.models import User
 
 
-# Create your models here.
 class Housing(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -12,8 +11,16 @@ class Housing(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    @property
+    def photo_url(self):
+        if self.photo:
+            return self.photo.url
+        return None
+
+
 class HousingApplication(models.Model):
     user = models.ForeignKey(User, related_name='demandes_logement', on_delete=models.CASCADE)
     announce = models.ForeignKey(Housing, related_name='demandes', on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
-    statut = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')])
+    statut = models.CharField(max_length=20,
+                              choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')])

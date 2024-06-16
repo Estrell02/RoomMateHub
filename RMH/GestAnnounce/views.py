@@ -20,6 +20,7 @@ class HousingViewSet(viewsets.ModelViewSet):
         return Housing.objects.filter(owner=self.request.user)
 
 
+
 class HousingApplicationViewset(viewsets.ModelViewSet):
     queryset = HousingApplication.objects.all()
     serializer_class = HousingApplicationSerializer

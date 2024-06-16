@@ -3,6 +3,7 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from .models import User, Profile
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -35,7 +36,7 @@ class UserSerializer(serializers.ModelSerializer):
         try:
             validate_password(value)
         except serializers.ValidationError as e:
-            raise serializers.ValidationError(list(e. messages))
+            raise serializers.ValidationError(list(e.messages))
         return value
 
     def create(self, validated_data, *args, **kwargs):
@@ -55,10 +56,10 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
+
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(style={'input_type': 'password'})
-
 
 
 #################### Profile   #############################
@@ -84,9 +85,18 @@ class ProfileSerializer(serializers.ModelSerializer):
     consumption_habits = serializers.ChoiceField(choices=Profile.CONSUMPTION_HABITS_CHOICES, allow_blank=True,
                                                  required=False)
     pet_friendly = serializers.ChoiceField(choices=Profile.PET_FRIENDLINESS_CHOICES, allow_blank=True, required=False)
+
+    #picture_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Profile
-        fields = ('user', 'picture', 'hobbies', 'vegan', 'filiere', 'nightlife', 'cleanliness',
-            'noise_level_tolerance', 'meal_preferences', 'social_interaction_preference',
-            'lifestyle', 'common_area_usage', 'academic_interests', 'consumption_habits',
-            'pet_friendly')
+        fields = ('user', 'picture', #'picture_url'
+                  'hobbies', 'vegan', 'filiere', 'nightlife', 'cleanliness',
+                  'noise_level_tolerance', 'meal_preferences', 'social_interaction_preference',
+                  'lifestyle', 'common_area_usage', 'academic_interests', 'consumption_habits',
+                  'pet_friendly')
+
+    #def get_photo_url(self, obj):
+     #   if obj.photo:
+      #      return self.context['request'].build_absolute_uri(obj.photo.url)
+       # return None

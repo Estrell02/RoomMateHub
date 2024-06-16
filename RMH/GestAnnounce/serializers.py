@@ -1,15 +1,22 @@
 from rest_framework import serializers
 
 from GestUsers.serializers import UserSerializer
-from .models import*
+from .models import *
 
 
 class HousingSerializer(serializers.ModelSerializer):
     owner = UserSerializer(read_only=True)
+    photo_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Housing
-        fields = ('id', 'title', 'description', 'price', 'location', 'photo', 'created_at', 'owner')
+        fields = ('id', 'title', 'description', 'price', 'location', 'photo', 'photo_url', 'created_at', 'owner')
+
+    def get_photo_url(self, obj):
+        if obj.photo:
+            return self.context['request'].build_absolute_uri(obj.photo.url)
+        return None
+
 
 class HousingApplicationSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())

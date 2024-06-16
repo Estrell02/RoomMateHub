@@ -42,14 +42,14 @@ INSTALLED_APPS = [
     'GestAnnounce',
     'corsheaders',
 
-
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'middleware.disable_csrf.DisableCSRFCheck',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -199,3 +199,15 @@ SIMPLE_JWT = {
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
+
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'profile/image')
+MEDIA_URL = '/media/image/'
+
+# Deuxième dossier de médias
+MEDIA_ROOT_SECOND = os.path.join(BASE_DIR, 'housing_photos')
+MEDIA_URL_SECOND = '/media/housing_photos/'
