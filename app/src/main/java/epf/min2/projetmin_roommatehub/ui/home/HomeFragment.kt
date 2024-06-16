@@ -1,38 +1,64 @@
 package epf.min2.projetmin_roommatehub.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import epf.min2.projetmin_roommatehub.Profil
+import epf.min2.projetmin_roommatehub.R
 import epf.min2.projetmin_roommatehub.databinding.FragmentHomeBinding
-
+import epf.min2.projetmin_roommatehub.utils.ApiManager
+import epf.min2.projetmin_roommatehub.utils.ProfilAdapter
+import kotlinx.coroutines.runBlocking
+import retrofit2.Response
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        // Example usage of the view model and binding
-        // Assuming you have a TextView defined in your layout as textHome
-//        val textView: TextView = binding.textHome
-//        homeViewModel.text.observe(viewLifecycleOwner) { text ->
-//            textView.text = text
-//        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        return root
+        val recyclerView: RecyclerView = binding.profilRecyclerview
+        val completeProfileButton: Button = binding.completeProfileButton
+
+        // Configure le GridLayoutManager pour 2 colonnes
+        val gridLayoutManager = GridLayoutManager(context, 2)
+        recyclerView.layoutManager = gridLayoutManager
+
+        // Récupération des profils
+        val apiManager = ApiManager()
+        runBlocking {
+            val response: Response<List<Profil>> = apiManager.getProfils()
+            if (response.isSuccessful) {
+                val profils: List<Profil> = response.body()!!
+                recyclerView.adapter = ProfilAdapter(profils)
+            } else {
+                println(response.errorBody())
+            }
+        }
+
+        // Configurer l'animation de gauche
+        recyclerView.itemAnimator = SlideInLeftAnimator()
+
+        // Bouton Compléter le profil
+        completeProfileButton.setOnClickListener {
+            //la page pour modifier le profil
+//            val intent = Intent(context, EditProfileActivity::class.java)
+//            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {

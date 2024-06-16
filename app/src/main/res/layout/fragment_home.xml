@@ -2,32 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
+    <TextView
+        android:id="@+id/welcomeMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Roommate Hub!"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
 
-<!--    <epf.min2.projetmin_roommatehub.utils.OptionBarre.OptionsBarre-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
-    <com.google.android.material.search.SearchBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/homeProfilListButton"
+    <SearchView
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profil List" />
-
+        android:queryHint="Search Profiles" />
     <Button
-        android:id="@+id/homeAnnonceListButton"
-        android:layout_width="match_parent"
+        android:id="@+id/completeProfileButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Annonce List" />
+        android:text="Compléter mon profil"
+        android:layout_marginTop="16dp" />
 
-    <Button
-        android:id="@+id/homeUserListButton"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profil_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="User List" />
-
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>

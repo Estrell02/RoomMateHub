@@ -24,7 +24,7 @@ class AnnonceListActivity : AppCompatActivity() {
                 val annonces : List<Annonce> = response.body()!!
                 val recyclerView = findViewById<RecyclerView>(R.id.annonce_recyclerview)
                 recyclerView.layoutManager = LinearLayoutManager(this@AnnonceListActivity, LinearLayoutManager.VERTICAL, false)
-                recyclerView.adapter = AnnonceAdapter(annonces)
+//                recyclerView.adapter = AnnonceAdapter(annonces)
             } else {
                 println(response.errorBody())
             }

@@ -74,5 +74,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("androidx.core:core-splashscreen:1.2.0-alpha01")
 
+    implementation ("jp.wasabeef:recyclerview-animators:4.0.2")
+
 
 }

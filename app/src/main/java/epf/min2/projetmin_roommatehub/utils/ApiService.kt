@@ -44,10 +44,10 @@ interface ApiService {
 
 
     //      Annonce           /////////////////////////////////////////////////////////////////////
-    @GET("/rmh/announce/")
+    @GET("/announce/housing")
     suspend fun getAnnonces(): Response<List<Annonce>>
 
-    @GET("/rmh/announce/{id}/")
+    @GET("/announce/housing/{id}/")
     suspend fun getAnnonce(@Path("id") annonceId: String): Response<Annonce>
 
     @Multipart

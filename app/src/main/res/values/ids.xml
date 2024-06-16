@@ -4,4 +4,13 @@
 <!--    <item name="frame_layout" type="id">fragment_container</item>-->
 <!--    <item name="nav_host_fragment" type="id">nav_host_fragment</item>-->
 
+
+<!--    <item name="welcomeTextView" type="id" />-->
+    <item name="welcomeTextView" type="id" />
+    <item name="completeProfileSection" type="id" />
+    <item name="completeProfileButton" type="id" />
+    <item name="proposedProfilesRecyclerView" type="id" />
+    <item name="adsRecyclerView" type="id" />
+    <item name="seeMoreAdsButton" type="id" />
+    <item name="searchBar" type="id" />
 </resources>

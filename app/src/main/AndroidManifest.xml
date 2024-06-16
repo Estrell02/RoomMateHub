@@ -17,26 +17,31 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".login.LoginActivity"
+            android:exported="false">
+<!--            android:label="@string/title_activity_main"-->
+
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+
+        <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/title_activity_main">
+            android:label="@string/app_name"
+
+            android:theme="@style/Theme.App.SplashScreen" >
+
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".RightActivity"
-            android:exported="false"
-            android:label="@string/title_activity_right"
-            android:theme="@style/Theme.ProjetMin_RoomMateHub.NoActionBar" />
-        <activity
-            android:name=".login.LoginActivity"
-            android:exported="false"
-
-            android:theme="@style/Theme.App.SplashScreen" />
-
 
         <activity android:name=".AnnonceList.AnnonceListActivity" />
         <activity android:name=".home.HomeActivity" />
@@ -45,6 +50,7 @@
         <activity android:name=".ProfilList.ProfilListActivity" />
         <activity android:name=".utils.OptionBarre.ModifyUserActivity" />
         <activity android:name=".UserListActivity" />
+        <activity android:name=".DetailAnnonceActivity" />
     </application>
 
 </manifest>
